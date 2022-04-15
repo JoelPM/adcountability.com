@@ -20,12 +20,34 @@
   <link rel="stylesheet" href="css/main.css">
 
   <meta name="theme-color" content="#fafafa">
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+  <script>
+    window.googletag = window.googletag || {cmd: []};
+    googletag.cmd.push(function() {
+      googletag
+          .defineSlot(
+              '/30503480/adcountability/main', [300, 250], 'ad_300x250')
+          .addService(googletag.pubads());
+      googletag.enableServices();
+    });
+  </script>
 </head>
 
 <body>
 
   <!-- Add your site or application content here -->
   <p>Hello world! This is HTML5 Boilerplate.</p>
+
+  <p>And this is an ad:</p>
+  <div id="ad_300x250">
+    <script>
+        googletag.cmd.push(function() {
+          googletag.display('ad_300x250');
+        });
+      </script>
+  </div>
+
+
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
