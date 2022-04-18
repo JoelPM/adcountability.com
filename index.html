@@ -48,7 +48,7 @@
     // PREBID initialization follows
     window.googletag = window.googletag || {cmd: []};
     googletag.cmd.push(function() {
-      googletag.pubads.disableInitialLoad();
+      googletag.pubads().disableInitialLoad();
     });
 
     var pbjs = pbjs || {que: []};
