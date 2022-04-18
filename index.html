@@ -21,8 +21,58 @@
 
   <meta name="theme-color" content="#fafafa">
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+  <script async src="/js/vendor/prebid.js"></script>
   <script>
+    var sizes = [
+      [300, 250]
+    ];
+    var PREBID_TIMEOUT = 1000;
+    var FAILSAFE_TIMEOUT = 3000;
+
+    var adUnits = [{
+      code: '/30503480/adcountability/main',
+      mediaTypes: {
+        banner: {
+          sizes: sizes
+        }
+      },
+      bids: [{
+        bidder: 'openx',
+        params: {
+          unit: '557073522',
+          delDomain: 'oxv4support-d.openx.net'
+        }
+      }]
+    }];
+
+    // PREBID initialization follows
     window.googletag = window.googletag || {cmd: []};
+    googletag.cmd.push(function() {
+      googletag.pubads.disableInitialLoad();
+    });
+
+    var pbjs = pbjs || {que: []};
+    pbjs.que.push(function() {
+      pbjs.addAdUnits(adUnits);
+      pbjs.requestBids({
+        bidsBackHandler: initAdServer,
+        timeout: PREBID_TIMEOUT
+      })
+    });
+
+    function initAdServer() {
+      if (pbjs.initAdServerSet) return;
+      pbjs.initAdServerSet = true;
+      googletag.cmd.push(function() {
+        pbjs.setTargetingForGPTAsync && pbjs.setTargetingForGPTAsync();
+        googletag.pubads().refresh();
+      });
+    }
+
+    setTimeout(function() {
+      initAdServer();
+    }, FAILSAFE_TIMEOUT);
+
     googletag.cmd.push(function() {
       googletag
           .defineSlot('/30503480/adcountability/main', [300, 250], 'ad_300x250')
